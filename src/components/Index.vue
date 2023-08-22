@@ -16,7 +16,7 @@
       <div :class="layoutWidth" class="flex-container scroll-y" v-if="total">
         <div v-for="character in data" :key="character.id">
           <ul>
-            <li><a @click="selectedCharacterId = character.id">{{ character.name }}</a></li>
+            <li><a @click="selectedCharacterId = selectedCharacterId !== character.id ? character.id : 0">{{ character.name }}</a></li>
             <li>{{ character.species }}, {{ character.gender }}</li>
             <li><img width="60" height="60" :src="character.image" /></li>
             <li>Episodes:
@@ -72,7 +72,7 @@ const layoutWidth = computed((): string => (selectedCharacter.value === null && 
 function episodeSelect (ep: string) {
   const episode: number = getIdFromUrl(ep)
 
-  selectedEpisodeId.value = episode || 0
+  selectedEpisodeId.value = episode !== selectedEpisodeId.value ? episode : 0
 }
 
 watch(() => filter.name, () => {
